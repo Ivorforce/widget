@@ -69,29 +69,29 @@ class Curse {
 		}
 
 		$properties = [
-			'title' 			=> $this->crawler->filter('meta[property="og:title"]')->attr('content'),
-			'game' 				=> $this->crawler->filter('ul.details-list .game')->text(),
-			'thumbnail' 		=> $this->crawler->filter('meta[property="og:image"]')->attr('content'),
-			'authors' 			=> $this->crawler->filter('ul.authors li a')->each(function ($node, $i) { return $node->text(); }),
-			'total-downloads' 	=> $this->crawler->filter('ul.details-list .downloads')->number(),
+			'title' => $this->crawler->filter('meta[property="og:title"]')->attr('content'),
+			'game' => $this->crawler->filter('ul.details-list .game')->text(),
+			'thumbnail' => $this->crawler->filter('meta[property="og:image"]')->attr('content'),
+			'authors' 	=> $this->crawler->filter('ul.authors li a')->each(function ($node, $i) { return $node->text(); }),
+			'total-downloads' => $this->crawler->filter('ul.details-list .downloads')->number(),
 			'monthly-downloads' => $this->crawler->filter('ul.details-list .average-downloads')->number(),
-			'favorites' 		=> $this->crawler->filter('ul.details-list .favorited')->number(),
-			'likes' 			=> $this->crawler->filter('li.grats span.project-rater')->number(),
-			'updated-at' 		=> $this->crawler->filter('ul.details-list .updated .standard-date')->eq(0)->attrAsTime('data-epoch'),
-			'created-at' 		=> $this->crawler->filter('ul.details-list .updated .standard-date')->eq(1)->attrAsTime('data-epoch'),
-			'project-url' 		=> $this->crawler->filter('ul.details-list .curseforge a')->attr('href'),
-			'release-type' 		=> $this->crawler->filter('ul.details-list .release')->value(),
-			'license' 			=> $this->crawler->filter('ul.details-list .license')->value(),
+			'favorites'	=> $this->crawler->filter('ul.details-list .favorited')->number(),
+			'likes'=> $this->crawler->filter('li.grats span.project-rater')->number(),
+			'updated-at' => $this->crawler->filter('ul.details-list .updated .standard-date')->eq(0)->attrAsTime('data-epoch'),
+			'created-at' => $this->crawler->filter('ul.details-list .updated .standard-date')->eq(1)->attrAsTime('data-epoch'),
+			'project-url' => $this->crawler->filter('ul.details-list .curseforge a')->attr('href'),
+			'release-type' => $this->crawler->filter('ul.details-list .release')->value(),
+			'license' => $this->crawler->filter('ul.details-list .license')->value(),
 		];
 
 		$files = $this->crawler->filter('table.project-file-listing tr')->each(function ($node, $i) {
 			if ($i == 0) return; // skip the table heading
 
 			return [
-				'url' 		=> 'http://curse.com' . $node->filter('td a')->eq(0)->attr('href'),
-				'name' 		=> $node->filter('td a')->eq(0)->text(),
-				'type' 		=> $node->filter('td')->eq(1)->text(),
-				'version' 	=> $node->filter('td')->eq(2)->text(),
+				'url' => 'http://curse.com' . $node->filter('td a')->eq(0)->attr('href'),
+				'name' => $node->filter('td a')->eq(0)->text(),
+				'type' => $node->filter('td')->eq(1)->text(),
+				'version' => $node->filter('td')->eq(2)->text(),
 				'downloads' => $node->filter('td')->eq(3)->number(),
 				'timestamp' => $node->filter('td .standard-date')->attrAsTime('data-epoch')
 			];
