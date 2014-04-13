@@ -71,6 +71,7 @@ class Curse {
 		$properties = [
 			'title' => $this->crawler->filter('meta[property="og:title"]')->attr('content'),
 			'game' => $this->crawler->filter('ul.details-list .game')->text(),
+			'category' => $this->crawler->filter('#breadcrumbs-wrapper ul.breadcrumbs li a')->eq(2)->text(),
 			'thumbnail' => $this->crawler->filter('meta[property="og:image"]')->attr('content'),
 			'authors' => $this->crawler->filter('ul.authors li a')->each(function ($node, $i) { return $node->text(); }),
 			'total-downloads' => $this->crawler->filter('ul.details-list .downloads')->number(),
