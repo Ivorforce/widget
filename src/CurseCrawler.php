@@ -26,17 +26,34 @@ class CurseCrawler extends Crawler {
 		return trim(explode(':', $this->getNode(0)->nodeValue)[1]);
 	}
 
+	/**
+	 * Format an attribute as an ISO8601 time
+	 *
+	 * @param string $key
+	 * @return string
+	 */
 	public function attrAsTime($key)
 	{
 		$timestamp = $this->attr($key);
 		return $this->timestampToISO8601($timestamp);
 	}
 
+	/**
+	 * Check if the node exists
+	 *
+	 * @return bool
+	 */
 	public function exists()
 	{
 		return (count($this)) ? true : false;
 	}
 
+	/**
+	 * Convert unix timestamp to ISO8601
+	 *
+	 * @param $timestamp
+	 * @return string
+	 */
 	private function timestampToISO8601($timestamp)
 	{
 		return Carbon::createFromTimestamp($timestamp)->toISO8601String();
