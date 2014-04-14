@@ -12,5 +12,4 @@ through ```widget.mcf.li/mc-mods/minecraft/mb-battlegear-2?theme=citric```.
 
 # How to use
 
-Visit [widget.mcf.li](http://widget.mcf.li) for project documentation or see
-```html/docs.html```.
+Visit [widget.mcf.li](http://widget.mcf.li) for project documentation
