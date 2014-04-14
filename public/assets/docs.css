@@ -14,11 +14,18 @@ body {
     font-size: 18px;
 }
 
+.wrapper p a {
+    color: #ea8f20;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .curse {
     color: #fbad12;
 }
 
 #widget {
     border: none;
+    margin-top: 20px;
     width: 100%;
 }
