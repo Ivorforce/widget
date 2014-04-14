@@ -72,10 +72,13 @@ class Curse {
 			'title' => $this->crawler->filter('meta[property="og:title"]')->attr('content'),
 			'game' => $this->crawler->filter('ul.details-list .game')->text(),
 			'category' => $this->crawler->filter('#breadcrumbs-wrapper ul.breadcrumbs li a')->eq(2)->text(),
+			'url' => $this->crawler->filter('meta[property="og:url"]')->attr('content'),
 			'thumbnail' => $this->crawler->filter('meta[property="og:image"]')->attr('content'),
 			'authors' => $this->crawler->filter('ul.authors li a')->each(function ($node, $i) { return $node->text(); }),
-			'total_downloads' => $this->crawler->filter('ul.details-list .downloads')->number(),
-			'monthly_downloads' => $this->crawler->filter('ul.details-list .average-downloads')->number(),
+			'downloads' => [
+				'monthly' => $this->crawler->filter('ul.details-list .average-downloads')->number(),
+				'total' => $this->crawler->filter('ul.details-list .downloads')->number()
+			],
 			'favorites' => $this->crawler->filter('ul.details-list .favorited')->number(),
 			'likes'=> $this->crawler->filter('li.grats span.project-rater')->number(),
 			'updated_at' => $this->crawler->filter('ul.details-list .updated .standard-date')->eq(0)->attrAsTime('data-epoch'),
@@ -95,7 +98,7 @@ class Curse {
 				'type' => $node->filter('td')->eq(1)->text(),
 				'version' => $node->filter('td')->eq(2)->text(),
 				'downloads' => $node->filter('td')->eq(3)->number(),
-				'timestamp' => $node->filter('td .standard-date')->attrAsTime('data-epoch')
+				'created_at' => $node->filter('td .standard-date')->attrAsTime('data-epoch')
 			];
 		});
 
@@ -103,7 +106,27 @@ class Curse {
 		// because of the skipped table heading
 		$properties['files'] = array_slice($files, 1);
 
+		$properties['versions'] = $this->versions($properties['files']);
+
 		return $properties;
+	}
+
+	/**
+	 * Take an array of files and return the versions with the latest file
+	 *
+	 * @param $files
+	 * @return array
+	 */
+	public function versions($files)
+	{
+		usort($files, function ($a, $b)
+		{
+			return ($a['created_at'] < $b['created_at']) ? 1 : -1;
+		});
+
+		foreach (array_reverse($files) as $file) $versions[$file['version']] = $file;
+
+		return array_reverse($versions);
 	}
 
 	/**
