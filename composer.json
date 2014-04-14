@@ -4,7 +4,8 @@
         "klein/klein": "2.*",
         "symfony/dom-crawler": "2.4.*",
         "symfony/css-selector": "~2.0",
-        "nesbot/carbon": "1.8.*"
+        "nesbot/carbon": "1.8.*",
+        "twig/twig": "1.*"
     },
     "autoload": {
         "psr-4": {
