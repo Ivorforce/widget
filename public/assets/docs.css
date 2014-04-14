@@ -1,0 +1,24 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+}
+
+.wrapper {
+    margin: 40px 50px;
+    width: 640px;
+}
+
+.wrapper p.lead {
+    font-size: 18px;
+}
+
+.curse {
+    color: #fbad12;
+}
+
+#widget {
+    border: none;
+    width: 100%;
+}
