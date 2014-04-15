@@ -20,6 +20,7 @@
 			<div class="thumb">
 				<img src="{{ thumbnail }}" alt="Thumbnail of {{ title }}"/>
 			</div>
+            {% set download = versions[version] %}
 			<div class="meta">
 				<div class="line lead">
 					<a href="{{ url }}" title="{{ title }}" target="_blank">
@@ -32,11 +33,13 @@
                         </a>
 					</small>
 				</div>
+                <div class="line smaller">
+                    Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
+                </div>
 				<div class="line small">
 					{{ downloads.total|number_format }} Downloads
 					<span class="quiet">{{ downloads.monthly|number_format }} Monthly</span>
 				</div>
-				{% set download = versions[version] %}
 				<div class="line small">
 					{{ game }} v{{ download.version }}
 					<span class="quiet">Updated {{ download.created_at|date("Y/m/d") }}</span>
