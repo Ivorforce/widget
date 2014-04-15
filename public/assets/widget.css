@@ -31,7 +31,7 @@ body {
 
 .wrapper .meta {
     float: left;
-    width: 300px;
+    min-width: 300px;
 }
 
 .wrapper .meta .line.lead {
