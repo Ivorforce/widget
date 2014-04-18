@@ -60,12 +60,35 @@ body {
 .wrapper .meta .line a {
     color: #222;
     font-weight: bold;
-    text-decoration: none;
+}
+
+.wrapper .meta .line.lead a:hover {
+    color: #ea8f20;
 }
 
 .btn-curse {
     background-color: #fbad12;
     border-color: #ea8f20;
+}
+
+.about-widget {
+    color: #333;
+    display: none;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    height: 20px;
+    margin: -8px;
+    width: 16px;
+}
+
+.about-widget:hover {
+    color: #ea8f20;
+    text-decoration: none;
+}
+
+.wrapper:hover .about-widget {
+    display: inline;
 }
 
 /*!
