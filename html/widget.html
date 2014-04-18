@@ -67,10 +67,9 @@
 
             var links = document.getElementsByTagName("a");
             for (i = 0; i < links.length; i++) {
-                var id = links[i].getAttribute('id');
-                var link = document.getElementById(id);
-                addListener(link, 'click', function() {
-                    ga('send', 'event', 'button', 'click', id);
+                var link = document.getElementById(links[i].getAttribute('id'));
+                addListener(link, 'click', function(event) {
+                    ga('send', 'event', 'button', 'click', event.target.id);
                 });
             }
         </script>
