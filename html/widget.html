@@ -4,7 +4,7 @@
 		<title>{{ title }}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/assets/widget.min.css"/>
+		<link rel="stylesheet" href="/assets/widget.min.css"/>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -20,22 +20,22 @@
 			<div class="thumb">
 				<img src="{{ thumbnail }}" alt="Thumbnail of {{ title }}"/>
 			</div>
-            {% set download = versions[version] %}
+			{% set download = versions[version] %}
 			<div class="meta">
 				<div class="line lead">
 					<a href="{{ url }}" title="{{ title }}" target="_blank" id="title-link">
-                        {{ title }}
-                    </a>
+						{{ title }}
+					</a>
 					<small>
 						by
-                        <a href="http://www.curse.com/users/{{ authors|first }}/projects" target="_blank" id="author-link">
-                            {{ authors|first }}
-                        </a>
+						<a href="http://www.curse.com/users/{{ authors|first }}/projects" target="_blank" id="author-link">
+							{{ authors|first }}
+						</a>
 					</small>
 				</div>
-                <div class="line smaller">
-                    Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
-                </div>
+				<div class="line smaller">
+ 					Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
+				</div>
 				<div class="line small">
 					{{ downloads.total|number_format }} Downloads
 					<span class="quiet">{{ downloads.monthly|number_format }} Monthly</span>
@@ -47,31 +47,31 @@
 				<div class="line bottom">
 					<div class="btn-group">
 						<a href="{{ download.url }}" class="btn btn-sm btn-curse" target="_blank" id="download-button">
-                            Download for {{ download.version }}
-                        </a>
-                        <a href="{{ url }}#t1:other-downloads" class="btn btn-sm btn-curse" target="_blank" id="all-button">
-                            View all {{ files|length }} downloads
-                        </a>
+							Download for {{ download.version }}
+						</a>
+						<a href="{{ url }}#t1:other-downloads" class="btn btn-sm btn-curse" target="_blank" id="all-button">
+							View all {{ files|length }} downloads
+						</a>
 					</div>
 				</div>
 			</div>
-            <a class="about-widget" href="http://widget.mcf.li" target="_blank" id="about-widget" title="Learn more about widget">
-                &iquest;
-            </a>
+			<a class="about-widget" href="http://widget.mcf.li" target="_blank" id="about-widget" title="Learn more about widget">
+				&iquest;
+			</a>
 		</div>
-        <script type="text/javascript">
-            function addListener(element, type, callback) {
-                if (element.addEventListener) element.addEventListener(type, callback);
-                else if (element.attachEvent) element.attachEvent('on' + type, callback);
-            }
+		<script type="text/javascript">
+			function addListener(element, type, callback) {
+				if (element.addEventListener) element.addEventListener(type, callback);
+				else if (element.attachEvent) element.attachEvent('on' + type, callback);
+			}
 
-            var links = document.getElementsByTagName("a");
-            for (i = 0; i < links.length; i++) {
-                var link = document.getElementById(links[i].getAttribute('id'));
-                addListener(link, 'click', function(event) {
-                    ga('send', 'event', 'button', 'click', event.target.id);
-                });
-            }
-        </script>
+			var links = document.getElementsByTagName("a");
+			for (i = 0; i < links.length; i++) {
+				var link = document.getElementById(links[i].getAttribute('id'));
+				addListener(link, 'click', function(event) {
+					ga('send', 'event', 'button', 'click', event.target.id);
+				});
+			}
+		</script>
 	</body>
 </html>
