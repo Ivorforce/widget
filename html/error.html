@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>404 Widget Not Found</title>
+	<title>{{ error }}</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="/assets/widget.min.css"/>
@@ -12,15 +12,18 @@
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		ga('create', 'UA-29439846-24', 'mcf.li');
-		ga('send', 'pageview', '404?page='+ document.location.pathname + document.location.search +'&from=' + document.referrer);
+		ga('send', 'pageview', 'error?page='+ document.location.pathname + document.location.search +'&from=' + document.referrer);
 	</script>
 </head>
 <body>
-	<div class="wrapper notfound">
-		<h1>404 Not Found</h1>
+	<div class="wrapper error">
+		<h1>{{ error }}</h1>
+		<p>
+			<strong>Error</strong> {{ message }}.
+		</p>
 		<p>
 			The <a href="http://widget.mcf.li" target="_blank">widget</a>
-			requested cannot be found.
+			requested cannot be rendered.
 		</p>
 	</div>
 </body>

@@ -17,11 +17,11 @@ body {
   padding: 6px;
 }
 
-.wrapper.notfound {
+.wrapper.error {
   padding: 10px 20px;
 }
 
-.wrapper.notfound h1 {
+.wrapper.error h1 {
   font-size: 1.5em;
 }
 

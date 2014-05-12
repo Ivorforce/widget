@@ -14,18 +14,24 @@ $router->respond(function ($request, $response, $service, $app)
 	};
 });
 
-$router->respond('GET', '/[*:project].[json:format]?', function ($request, $response, $service, $app)
+$router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $response, $service, $app)
 {
 	$curse = new Widget\Curse(new Widget\CurseCrawler, new Widget\MemcacheCache(new Memcache));
 
-	$project = $curse->project($request->param('project'));
+	$identifier = $request->param('identifier');
 	$format = $request->param('format', 'html');
 	$widget = $request->param('theme', 'widget');
+
+	$project = $curse->project($identifier);
 
 	if ( ! $project)
 	{
 		$response->code(404);
-		return $app->$format('404', ['error' => '404 Page Not Found']);
+		return $app->$format('error', [
+			'code' => '404',
+			'error' => 'Project Not Found',
+			'message' => "{$identifier} cannot be found on curse.com"
+		]);
 	}
 
 	$latest = key(array_slice($project['versions'], 0, 1));
