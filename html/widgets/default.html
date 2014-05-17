@@ -29,6 +29,7 @@
 				</div>
 				<div class="line smaller">
  					Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
+					{% if download.type == "beta" %}<span class="beta">beta!</span>{% endif %}
 				</div>
 				<div class="line small">
 					{{ downloads.total|number_format }} Downloads

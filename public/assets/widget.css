@@ -70,6 +70,11 @@ body {
   font-weight: bold;
 }
 
+.wrapper .meta .line .beta {
+  color: #ff4102;
+  font-weight: bold;
+}
+
 .wrapper .meta .line.lead a:hover {
   color: #ea8f20;
 }
