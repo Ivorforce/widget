@@ -82,7 +82,13 @@ class Render {
 		}
 
 		// No file meeting the parameters has been found, default to the latest release
-		return $this->pluckLatestFileOfType('release', $files);
+		if ($file = $this->pluckLatestFileOfType('release', $files))
+		{
+			return $file;
+		}
+
+		// No release file exists, a hail mary... just any file!
+		return array_slice($this->files, 0, 1)[0];
 	}
 
 	/**

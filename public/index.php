@@ -24,7 +24,10 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	$format = $request->param('format', 'html');
 	$theme = $request->param('theme', 'default');
 
-	if ( ! file_exists("../html/widgets/{$theme}.html")) $theme = 'default';
+	if ( ! file_exists("../html/widgets/{$theme}.html"))
+	{
+		$theme = 'default';
+	}
 
 	$properties = $curse->project($identifier);
 
@@ -35,6 +38,15 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 			'code' => '404',
 			'error' => 'Project Not Found',
 			'message' => "{$identifier} cannot be found on curse.com"
+		]);
+	}
+
+	if (empty($properties['files']))
+	{
+		return $app->$format('error', [
+			'code' => '200',
+			'error' => 'No files found',
+			'message' => "{$properties['title']} does not have any files available for download"
 		]);
 	}
 
