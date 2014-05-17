@@ -1,4 +1,5 @@
-<?php namespace Widget;
+<?php
+namespace Widget;
 
 class Curse {
 
@@ -34,35 +35,33 @@ class Curse {
 	/**
 	 * Take a project key and return the properties
 	 *
-	 * @param $project
+	 * @param string $identifier
 	 * @return array
 	 */
-	public function project($project)
+	public function project($identifier)
 	{
-		if ($this->cache->has($project))
+		if ( ! $this->cache->has($identifier))
 		{
-			return $this->cache->get($project);
+			$html =  $this->fetch($identifier);
+			$project = $this->parse($html);
+
+			$this->cache->set($identifier, $project, $this->expiry);
 		}
 
-		$project_html =  $this->fetch($project);
-		$properties = $this->parse($project_html);
-
-		$this->cache->set($project, $properties, $this->expiry);
-
-		return $properties;
+		return $this->cache->get($identifier);
 	}
 
 	/**
 	 * Parse curse.com HTML for project properties
 	 *
-	 * @param $html
+	 * @param string $html
 	 * @return array
 	 */
 	public function parse($html)
 	{
 		$this->crawler->add($html);
 
-		// Are we looking at a mod page? If not, return nothing
+		// Return null if this isn't a content page
 		if ( ! $this->crawler->filter('ul.details-list .game')->exists())
 		{
 			return null;
@@ -86,53 +85,29 @@ class Curse {
 			'project_url' => $this->crawler->filter('ul.details-list .curseforge a')->attr('href'),
 			'release_type' => $this->crawler->filter('ul.details-list .release')->value(),
 			'license' => $this->crawler->filter('ul.details-list .license')->value(),
+			'files' => $this->crawler->filter('table.project-file-listing tr')->eachWithoutNull(function ($node, $i)
+			{
+				if ($i === 0) return; // skip the table heading
+
+				return [
+					'id' => (int) $node->filter('td a')->eq(0)->finalUrlSegment('href'),
+					'url' => 'http://curse.com' . $node->filter('td a')->eq(0)->attr('href'),
+					'name' => $node->filter('td a')->eq(0)->text(),
+					'type' => strtolower($node->filter('td')->eq(1)->text()),
+					'version' => $node->filter('td')->eq(2)->text(),
+					'downloads' => $node->filter('td')->eq(3)->number(),
+					'created_at' => $node->filter('td .standard-date')->attrAsTime('data-epoch')
+				];
+			})
 		];
-
-		$files = $this->crawler->filter('table.project-file-listing tr')->each(function ($node, $i)
-		{
-			if ($i == 0) return; // skip the table heading
-
-			return [
-				'url' => 'http://curse.com' . $node->filter('td a')->eq(0)->attr('href'),
-				'name' => $node->filter('td a')->eq(0)->text(),
-				'type' => $node->filter('td')->eq(1)->text(),
-				'version' => $node->filter('td')->eq(2)->text(),
-				'downloads' => $node->filter('td')->eq(3)->number(),
-				'created_at' => $node->filter('td .standard-date')->attrAsTime('data-epoch')
-			];
-		});
-
-		// Remove the first entry from the array, the first is always null
-		// because of the skipped table heading
-		$properties['files'] = array_slice($files, 1);
-
-		$properties['versions'] = $this->versions($properties['files']);
 
 		return $properties;
 	}
 
 	/**
-	 * Take an array of files and return the versions with the latest file
-	 *
-	 * @param $files
-	 * @return array
-	 */
-	public function versions($files)
-	{
-		usort($files, function ($a, $b)
-		{
-			return ($a['created_at'] < $b['created_at']) ? 1 : -1;
-		});
-
-		foreach (array_reverse($files) as $file) $versions[$file['version']] = $file;
-
-		return array_reverse($versions);
-	}
-
-	/**
 	 * Fetch a project from curse.com
 	 *
-	 * @param $project
+	 * @param string $project
 	 * @return string
 	 */
 	public function fetch($project)
@@ -143,7 +118,7 @@ class Curse {
 	/**
 	 * Perform CURL request
 	 *
-	 * @param $url
+	 * @param string $url
 	 * @return mixed
 	 */
 	protected function curl($url)

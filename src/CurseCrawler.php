@@ -59,4 +59,22 @@ class CurseCrawler extends Crawler {
 		return Carbon::createFromTimestamp($timestamp)->toISO8601String();
 	}
 
+	/**
+	 * Extend each to remove values that are null
+	 *
+	 * @param callable $closure
+	 * @return array
+	 */
+	public function eachWithoutNull(\Closure $closure)
+	{
+		$data = $this->each($closure);
+		return array_filter($data, 'is_array');
+	}
+
+	public function finalUrlSegment($key)
+	{
+		$segments = explode('/', $this->attr($key));
+		return end($segments);
+	}
+
 }
