@@ -24,11 +24,6 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	$format = $request->param('format', 'html');
 	$theme = $request->param('theme', 'default');
 
-	if ( ! file_exists("../html/widgets/{$theme}.html"))
-	{
-		$theme = 'default';
-	}
-
 	$properties = $curse->project($identifier);
 
 	if ( ! $properties)
@@ -52,6 +47,11 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 
 	$renderer = new Widget\Render($properties);
 	$project = $renderer->render($version);
+
+	if ( ! file_exists("../html/widgets/{$theme}.html"))
+	{
+		$theme = 'default';
+	}
 
 	return $app->$format("widgets/{$theme}", $project);
 });
