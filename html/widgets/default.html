@@ -20,18 +20,12 @@
 			<div class="thumb">
 				<img src="{{ thumbnail }}" alt="Thumbnail of {{ title }}"/>
 			</div>
-			{% set download = versions[version] %}
 			<div class="meta">
 				<div class="line lead">
 					<a href="{{ url }}" title="{{ title }}" target="_blank" id="title-link">
 						{{ title }}
 					</a>
-					<small>
-						by
-						<a href="http://www.curse.com/users/{{ authors|first }}/projects" target="_blank" id="author-link">
-							{{ authors|first }}
-						</a>
-					</small>
+					<small>by {{ authors|first }}</small>
 				</div>
 				<div class="line smaller">
  					Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
