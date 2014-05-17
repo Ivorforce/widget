@@ -1,4 +1,5 @@
-<?php require_once '../vendor/autoload.php';
+<?php
+require_once '../vendor/autoload.php';
 
 $router = new Klein\Klein();
 
@@ -19,12 +20,15 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	$curse = new Widget\Curse(new Widget\CurseCrawler, new Widget\MemcacheCache(new Memcache));
 
 	$identifier = $request->param('identifier');
+	$version = $request->param('version', 'latest');
 	$format = $request->param('format', 'html');
-	$widget = $request->param('theme', 'widget');
+	$theme = $request->param('theme', 'default');
 
-	$project = $curse->project($identifier);
+	if ( ! file_exists("../html/widgets/{$theme}.html")) $theme = 'default';
 
-	if ( ! $project)
+	$properties = $curse->project($identifier);
+
+	if ( ! $properties)
 	{
 		$response->code(404);
 		return $app->$format('error', [
@@ -34,14 +38,10 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 		]);
 	}
 
-	$latest = key(array_slice($project['versions'], 0, 1));
-	$version = $request->param('version', $latest);
-	if (empty($version)) $version = $latest;
+	$renderer = new Widget\Render($properties);
+	$project = $renderer->render($version);
 
-	return $app->$format($widget, array_merge(
-		$project,
-		['version' => $version]
-	));
+	return $app->$format("widgets/{$theme}", $project);
 });
 
 $router->respond('GET', '/', function ($request, $response, $service, $app)
