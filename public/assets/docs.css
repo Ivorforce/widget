@@ -29,3 +29,14 @@ body {
     margin-top: 20px;
     width: 100%;
 }
+
+.new {
+  color: #ff4102;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+abbr {
+  font-weight: bold;
+  border-bottom: dotted 1px;
+}
