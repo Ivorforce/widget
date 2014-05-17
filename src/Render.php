@@ -154,7 +154,7 @@ class Render {
 		}
 
 		// if the version is a number + a type, eg: "1.7.2/beta"
-		if ( isset($properties[1]))
+		if (isset($properties[1]))
 		{
 			return [$properties[0], $properties[1]];
 		}

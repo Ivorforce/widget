@@ -1,4 +1,5 @@
-<?php namespace Widget;
+<?php
+namespace Widget;
 
 use Memcache;
 
