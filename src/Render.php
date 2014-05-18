@@ -42,7 +42,7 @@ class Render {
 	public function render($version = 'release')
 	{
 		list($number, $type) = $this->expandStringVersion($version);
-		$download = $this->pluckDownload($number, $type);
+		$download = $this->pluckDownload($this->files, $number, $type);
 
 		return array_merge($this->properties, [
 			'download' 	=> $download,
@@ -54,15 +54,14 @@ class Render {
 	/**
 	 * Pluck a download from the file list using the provided version parameters
 	 *
+	 * @param array  $files
 	 * @param string $number
 	 * @param string $type
 	 *
 	 * @return array
 	 */
-	public function pluckDownload($number, $type = 'release')
+	public function pluckDownload($files, $number, $type = 'release')
 	{
-		$files = $this->files;
-
 		// A numeric version is a file ID, eg: 123456
 		if (is_numeric($number) && isset($files[$number]))
 		{
