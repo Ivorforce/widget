@@ -64,12 +64,12 @@ class Render {
 		$files = $this->files;
 
 		// A numeric version is a file ID, eg: 123456
-		if (is_numeric($number))
+		if (is_numeric($number) && isset($files[$number]))
 		{
-			if (isset($files[$number])) return $files[$number];
+			return $files[$number];
 		}
 
-		// Remove any files that aren't from the specified version (eg: 1.7.2)
+		// If a version is specified (eg: 1.7.2) use only files from that version
 		if ($number && isset($this->versions[$number]))
 		{
 			$files = $this->versions[$number];

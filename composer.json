@@ -1,6 +1,7 @@
 {
     "name": "minecraftforum/widget",
     "require": {
+        "php": ">=5.4.0",
         "klein/klein": "2.*",
         "symfony/dom-crawler": "2.4.*",
         "symfony/css-selector": "~2.0",

@@ -72,6 +72,12 @@ class CurseCrawler extends Crawler {
 		return array_filter($data, 'is_array');
 	}
 
+	/**
+	 * Return final segment from a URL, eg: example.com/user/1 returns 1
+	 *
+	 * @param string $key
+	 * @return string
+	 */
 	public function finalUrlSegment($key)
 	{
 		$segments = explode('/', $this->attr($key));
