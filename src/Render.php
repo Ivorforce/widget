@@ -89,7 +89,7 @@ class Render {
 		}
 
 		// No release file exists, a hail mary... just any file! The latest file!
-		return array_slice($this->files, 0, 1)[0];
+		return array_slice($files, 0, 1)[0];
 	}
 
 	/**
