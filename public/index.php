@@ -24,6 +24,16 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	$format = $request->param('format', 'html');
 	$theme = $request->param('theme', 'default');
 
+	if ( ! preg_match('%^.+/.+/.+$%', $identifier))
+	{
+		$response->code(400);
+		return $app->$format('error', [
+			'code' => '400',
+			'error' => 'No Project Specified',
+			'message' => 'Please provide a project identifier'
+		]);
+	}
+
 	$properties = $curse->project($identifier);
 
 	if ( ! $properties)
@@ -40,7 +50,7 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	{
 		return $app->$format('error', [
 			'code' => '200',
-			'error' => 'No files found',
+			'error' => 'No Files Found',
 			'message' => "{$properties['title']} does not have any files available for download"
 		]);
 	}
