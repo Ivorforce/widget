@@ -33,6 +33,22 @@ class Curse {
 	}
 
 	/**
+	 * Check if the project identifier is valid
+	 *
+	 * @param string $identifier
+	 * @return bool
+	 */
+	public function isValid($identifier)
+	{
+		if (preg_match('%^.+/.+/.+$%', $identifier) || preg_match('%project/[0-9]+$%', $identifier))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Take a project key and return the properties
 	 *
 	 * @param string $identifier

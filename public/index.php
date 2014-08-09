@@ -24,7 +24,12 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 	$format = $request->param('format', 'html');
 	$theme = $request->param('theme', 'default');
 
-	if ( ! preg_match('%^.+/.+/.+$%', $identifier))
+	if (is_numeric($identifier))
+	{
+		$identifier = "project/{$identifier}";
+	}
+
+	if ( ! $curse->isValid($identifier))
 	{
 		$response->code(400);
 		return $app->$format('error', [
