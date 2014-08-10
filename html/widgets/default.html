@@ -21,24 +21,27 @@
 				<img src="{{ thumbnail }}" alt="Thumbnail of {{ title }}"/>
 			</div>
 			<div class="meta">
-				<div class="line lead">
+				<span class="line lead">
 					<a href="{{ url }}" title="{{ title }}" target="_blank" id="title-link">
 						{{ title }}
 					</a>
 					<small>by {{ authors|first }}</small>
-				</div>
-				<div class="line smaller">
- 					Latest v{{ download.version }} File: <strong>{{ download.name }}</strong>
+				</span>
+				<span class="line smaller">
+ 					Latest v{{ download.version }} File:
+					<span class="file-name" title="{{ download.name }}">
+						{{ download.name|length > 30 ? download.name[:27] ~ '...' : download.name }}
+					</span>
 					{% if download.type == "beta" %}<span class="beta">beta!</span>{% endif %}
-				</div>
-				<div class="line small">
+				</span>
+				<span class="line small">
 					{{ downloads.total|number_format }} Downloads
 					<span class="quiet">{{ downloads.monthly|number_format }} Monthly</span>
-				</div>
-				<div class="line small">
+				</span>
+				<span class="line small">
 					{{ game }} v{{ download.version }}
 					<span class="quiet">Updated {{ download.created_at|date("Y/m/d") }}</span>
-				</div>
+				</span>
 				<div class="line bottom">
 					<div class="btn-group">
 						<a href="{{ download.url }}" class="btn btn-sm btn-curse" target="_blank" id="download-button">

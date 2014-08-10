@@ -13,7 +13,7 @@ body {
   border-radius: 4px;
   box-shadow: 1px 1px 0 #cccccc, 2px 2px 2px #eeeeee;
   height: 142px;
-  min-width: 520px;
+  min-width: 560px;
   padding: 6px;
 }
 
@@ -39,7 +39,13 @@ body {
 
 .wrapper .meta {
   float: left;
-  min-width: 300px;
+  min-width: 340px;
+}
+
+.wrapper .line {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .wrapper .meta .line.lead {
