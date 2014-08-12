@@ -1,0 +1,16 @@
+{
+  "name": "minecraftforum/widget",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minecraftforum/widget.git"
+  },
+  "dependencies": {
+    "bower": "1.*",
+    "gulp": "3.*"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minecraftforum/widget/issues"
+  }
+}
