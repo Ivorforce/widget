@@ -4,7 +4,7 @@
     <title>Curse Project Widget</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/docs.css"/>
+    <link rel="stylesheet" href="/assets/{{ assets['website.css'] }}"/>
 	<link rel="shortcut icon" href="/favicon.ico" />
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -17,171 +17,10 @@
     </script>
 </head>
 <body>
-    <div class="wrapper">
-        <h1>Curse Download Widget</h1>
-        <p class="lead">
-            Widgets for curse.com hosted projects, quick and easy project
-            overview and download information <em>anywhere</em> on the web.
-        </p>
-        <p>
-            Embeddable curse.com project widgets for minecraftforum.net and
-            beyond, <em>and</em> a JSON API for consuming curse.com project
-            information on your website. Widget is
-            <a href="https://github.com/minecraftforum/widget">
-                open source on GitHub
-            </a> and contributions of new widget themes are encouraged.
-        </p>
-        <iframe id="widget" src="/mc-mods/minecraft/mb-battlegear-2"></iframe>
-        <h2>Minecraft Forum</h2>
-        <p>
-            Embedding a curse.com project widget on minecraftforum.net is simple,
-            use the <strong>mod</strong>, <strong>texturepack</strong> or
-            <strong>world</strong> bbcode to place any number of widgets anywhere
-            in your forum topics.
-
-			Projects are identified by their curse.com slug or a unique
-			CurseForge project ID.
-		</p>
-		<p>
-			The optional version parameter accepts a
-			<abbr title="release">Release Type</abbr>,
-			<abbr title="1.7.2">Major Version</abbr>,
-			<abbr title="1.7.2/beta">Major Version with Release Type</abbr>,
-			or <abbr title="727805">File ID</abbr>.
-        </p>
-        <h3>Mod</h3>
-        <p>
-            Embed a download widget for the latest version of
-            <a href="http://www.curse.com/mc-mods/minecraft/mb-battlegear-2">
-                Mine & Blade: Battlegear 2
-            </a>
-        </p>
-        <code>
-            [mod]mb-battlegear-2[/mod]
-        </code>
-        <p>
-            Embed a download widget for version 1.6.4 of
-            <a href="http://www.curse.com/mc-mods/minecraft/mb-battlegear-2">
-                Mine & Blade: Battlegear 2
-            </a>
-        </p>
-        <code>
-            [mod="1.6.4"]mb-battlegear-2[/mod]
-        </code>
-		<p>
-			Embed a download widget for the latest
-			file with a release type beta of
-			<a href="http://www.curse.com/mc-mods/minecraft/mb-battlegear-2">
-				Mine & Blade: Battlegear 2
-			</a>
-		</p>
-		<code>
-			[mod="beta"]mb-battlegear-2[/mod]
-		</code>
-		<p>
-			Embed a download widget for the version
-			1.6.2 beta of
-			<a href="http://www.curse.com/mc-mods/minecraft/mb-battlegear-2">
-				Mine & Blade: Battlegear 2
-			</a>
-		</p>
-		<code>
-			[mod="1.6.2/beta"]mb-battlegear-2[/mod]
-		</code>
-		<p>
-			Embed a download widget for the #727805
-			file of
-			<a href="http://www.curse.com/mc-mods/minecraft/mb-battlegear-2">
-				Mine & Blade: Battlegear 2
-			</a>
-		</p>
-		<code>
-			[mod="727805"]mb-battlegear-2[/mod]
-		</code>
-        <h3>Texture Pack</h3>
-        <p>
-            Embed a download widget for the latest version of
-            <a href="http://www.curse.com/texture-packs/minecraft/equanimity-32x-1-7-x-1-6-x">
-                Equanimity [32x]
-            </a>
-        </p>
-        <code>
-            [texturepack]equanimity-32x-1-7-x-1-6-x[/texturepack]
-        </code>
-        <p>
-            Embed a download widget for version 1.7.2 of
-            <a href="http://www.curse.com/texture-packs/minecraft/equanimity-32x-1-7-x-1-6-x">
-                Equanimity [32x]
-            </a>
-        </p>
-        <code>
-            [texturepack="1.7.2"]equanimity-32x-1-7-x-1-6-x[/texturepack]
-        </code>
-        <h3>World</h3>
-        <p>
-            Embed a download widget for the latest version of
-            <a href="http://www.curse.com/worlds/minecraft/diversity">
-                Diversity
-            </a>
-        </p>
-        <code>
-            [world]diversity[/world]
-        </code>
-        <p>
-            Embed a download widget for version 1.6.4 of
-            <a href="http://www.curse.com/worlds/minecraft/diversity">
-                Diversity
-            </a>
-        </p>
-        <code>
-            [world="1.6.4"]diversity[/world]
-        </code>
-        <h2>Elsewhere</h2>
-        <p>
-            Widgets are embedded using iframes, create an iframe anywhere on
-            your page referencing <code>widget.mcf.li</code> followed by the
-            curse.com identifier for your project. The identifier of your project
-            is the path immediately following <strong>curse.com</strong>, for
-            example the identifier for
-            <a href="http://curse.com/mc-mods/minecraft/mb-battlegear-2">curse.com/mc-mods/minecraft/mb-battlegear-2</a>
-            is <strong>mc-mods/minecraft/mb-battlegear-2</strong>.
-        </p>
-        <code>
-            {% filter escape %}
-            <iframe src="http://widget.mcf.li/mc-mods/minecraft/mb-battlegear-2" width="100%" style="border: none;"></iframe>
-            {% endfilter %}
-        </code>
-        <p>
-            <strong>Optionally</strong> specify the version to be downloaded
-            using the <strong>version</strong> parameter, by default the latest
-            version will be used.
-        </p>
-        <code>
-            {% filter escape %}
-            <iframe src="http://widget.mcf.li/mc-mods/minecraft/mb-battlegear-2?version=1.6.4" width="100%" style="border: none;"></iframe>
-            {% endfilter %}
-        </code>
-        <h1>API</h1>
-        <p>
-            Append <code>.json</code> to any widget URL and a full JSON
-            representation of all of the data available for a project will be
-            returned, eg: <a href="/mc-mods/minecraft/mb-battlegear-2.json">
-                mc-mods/minecraft/mb-battlegear-2.json
-            </a>
-        </p>
-        <h1>Notes</h1>
-        <p>
-            Project data is cached for an hour.
-            <!-- TODO: Allow force clear cache -->
-        </p>
-        <p>
-            If you are having any problems using the widgets please contact
-            citricsquid. Reach via E-mail (<a href="mailto:sryan@curse.com">sryan@curse.com</a>),
-            via IRC (citricsquid on irc.esper.net) or via
-            <a href="http://u.mcf.li/citricsquid/pm">
-                Private Message on minecraftforum.net
-            </a>.
-        </p>
-    </div>
+	<header class="introduction">
+		<div class="unit whole">
+			Hello World!
+		</div>
+	</header>
 </body>
 </html>

@@ -7,3 +7,5 @@ Vagrantfile
 node_modules/
 bower_components/
 npm-debug.log
+/public/assets/*
+!/public/assets/.gitkeep
