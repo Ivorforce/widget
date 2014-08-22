@@ -7,7 +7,7 @@ $router->respond(function ($request, $response, $service, $app)
 {
 	$app->html = function ($view, $parameters = []) use ($response) {
 		$twig = new Twig_Environment(new Twig_Loader_Filesystem('../html'));
-		$assets = json_decode(file_get_contents('assets/rev-manifest.json'), true);
+		$assets = json_decode(file_get_contents('assets/assets.json'), true);
 		$parameters = array_merge($parameters, ['assets' => $assets]);
 		return $twig->render("{$view}.html", $parameters);
 	};
