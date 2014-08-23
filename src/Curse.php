@@ -23,6 +23,11 @@ class Curse {
 	protected $expiry = 3600;
 
 	/**
+	 * @var false
+	 */
+	protected $error = false;
+
+	/**
 	 * @param $crawler CurseCrawler
 	 * @param $cache CacheInterface
 	 */
@@ -30,6 +35,65 @@ class Curse {
 	{
 		$this->crawler = $crawler;
 		$this->cache = $cache;
+	}
+
+	/**
+	 * Retrieve a project by identifier
+	 *
+	 * @param $id
+	 * @return array|null
+	 */
+	public function project($id)
+	{
+		$identifier = $this->validateIdentifier($id);
+
+		if ( ! $identifier)
+		{
+			return $this->setError(
+				"Invalid identifier",
+				"{$id} (understood as {$identifier}) is not a valid Curse project ID",
+				400
+			);
+		}
+
+		$properties = $this->properties($identifier);
+
+		if ( ! $properties)
+		{
+			return $this->setError(
+				"Project not found",
+				"{$id} (understood as {$identifier}) can't be found on Curse.com",
+				404
+			);
+		}
+
+		return $properties;
+	}
+
+	/**
+	 * Take an identifier, transform and validate it
+	 *
+	 * @param $identifier
+	 * @return bool|string
+	 */
+	public function validateIdentifier($identifier)
+	{
+		if (preg_match('%^.+/?.+/([0-9]+).*$%', $identifier, $numericId))
+		{
+			$identifier = $numericId[1];
+		}
+
+		if (is_numeric($identifier))
+		{
+			$identifier = "project/{$identifier}";
+		}
+
+		if ($this->isValid($identifier))
+		{
+			return $identifier;
+		}
+
+		return false;
 	}
 
 	/**
@@ -52,11 +116,12 @@ class Curse {
 	 * Take a project key and return the properties
 	 *
 	 * @param string $identifier
+	 * @param bool 	 $bypassCache
 	 * @return array
 	 */
-	public function project($identifier)
+	public function properties($identifier, $bypassCache = false)
 	{
-		if ( ! $this->cache->has($identifier))
+		if ( ! $this->cache->has($identifier) || $bypassCache == true)
 		{
 			$html =  $this->fetch($identifier);
 			$project = $this->parse($html);
@@ -148,6 +213,34 @@ class Curse {
 		$response = curl_exec($curl);
 
 		return $response;
+	}
+
+
+	/**
+	 * Set the error
+	 *
+	 * @param $title
+	 * @param $message
+	 * @param $code
+	 * @return null
+	 */
+	public function setError($title, $message, $code)
+	{
+		return $this->error = [
+			'title' => $title,
+			'message' => $message,
+			'code' => $code
+		];
+	}
+
+	/**
+	 * Return the error
+	 *
+	 * @return array
+	 */
+	public function getError()
+	{
+		return $this->error;
 	}
 
 }

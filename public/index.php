@@ -3,79 +3,41 @@ require_once '../vendor/autoload.php';
 
 $router = new Klein\Klein();
 
-$router->respond(function ($request, $response, $service, $app)
-{
-	$app->html = function ($view, $parameters = []) use ($response) {
-		$twig = new Twig_Environment(new Twig_Loader_Filesystem('../html'));
-		$assets = json_decode(file_get_contents('assets/assets.json'), true);
-		$parameters = array_merge($parameters, ['assets' => $assets]);
-		return $twig->render("{$view}.html", $parameters);
-	};
-
-	$app->json = function ($view, $parameters) use ($response) {
-		return $response->json($parameters);
-	};
-});
-
 $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $response, $service, $app)
 {
 	$curse = new Widget\Curse(new Widget\CurseCrawler, new Widget\MemcacheCache(new Memcache));
 
 	$identifier = $request->param('identifier');
-	$version = $request->param('version', 'latest');
-	$format = $request->param('format', 'html');
-	$theme = $request->param('theme', 'default');
+	$version 	= $request->param('version', 'latest');
+	$theme 		= $request->param('theme', 'default');
 
-	if (is_numeric($identifier))
+	if ($request->param('format') === 'json')
 	{
-		$identifier = "project/{$identifier}";
+		$response->engine = new Widget\Http\JsonEngine();
 	}
-
-	if ( ! $curse->isValid($identifier))
-	{
-		$response->code(400);
-		return $app->$format('error', [
-			'code' => '400',
-			'error' => 'No Project Specified',
-			'message' => 'Please provide a project identifier'
-		]);
-	}
-
-	$properties = $curse->project($identifier);
-
-	if ( ! $properties)
-	{
-		$response->code(404);
-		return $app->$format('error', [
-			'code' => '404',
-			'error' => 'Project Not Found',
-			'message' => "{$identifier} cannot be found on curse.com"
-		]);
-	}
-
-	if (empty($properties['files']))
-	{
-		return $app->$format('error', [
-			'code' => '200',
-			'error' => 'No Files Found',
-			'message' => "{$properties['title']} does not have any files available for download"
-		]);
-	}
-
-	$renderer = new Widget\Render($properties);
-	$project = $renderer->render($version);
 
 	if ( ! file_exists("../html/widgets/{$theme}.html"))
 	{
 		$theme = 'default';
 	}
 
-	return $app->$format("widgets/{$theme}", $project);
+	$properties = $curse->project($identifier);
+
+	if ($curse->getError())
+	{
+		return $response->render('error', $curse->getError());
+	}
+
+	return $response->render("widgets/{$theme}", $properties);
 });
 
 $router->respond('GET', '/', function ($request, $response, $service, $app)
 {
-	return $app->html('docs');
+	return $response->render('docs');
 });
 
-$router->dispatch();
+$response = new Widget\Http\Response(new Widget\Http\TwigEngine(
+	new Twig_Loader_Filesystem(__DIR__ . '/../html'),
+	json_decode(file_get_contents(__DIR__ . '/assets/assets.json'), true)
+));
+$router->dispatch(null, $response);
