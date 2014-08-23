@@ -51,7 +51,7 @@ class Curse {
 		{
 			return $this->setError(
 				"Invalid identifier",
-				"{$id} (understood as {$identifier}) is not a valid Curse project ID",
+				"{$id} is not a valid Curse project ID",
 				400
 			);
 		}
