@@ -12,8 +12,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1",
-    "mustache.js": "~0.8.2",
     "neat": "~1.5.0",
     "bourbon": "3.2"
   }
