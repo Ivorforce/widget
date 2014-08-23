@@ -4,8 +4,9 @@
     <title>Curse Project Widget</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/{{ assets['website.css'] }}"/>
 	<link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/{{ assets['website.css'] }}"/>
+	<script type="text/javascript" src="/assets/js/{{ assets['website.js'] }}" async></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -18,9 +19,43 @@
 </head>
 <body>
 	<header class="introduction">
-		<div class="unit whole">
-			Hello World!
+		<div class="content">
+			<h1>Curse Download Widget</h1>
+			<p class="lead">
+				Embeddable widgets for curse.com hosted projects, share project
+				information and downloads <em>anywhere</em> on the web, fast
+				and efficiently.
+			</p>
+			<p>
+				Share your <strong>mod</strong>, <strong>map</strong> and
+				<strong>texture pack</strong> on the Minecraft Forum
+				using the <a href="#">BBCode</a>, access
+				your project meta data using the <a href="#">JSON
+				API</a>, embed widgets on your own website using
+				<a href="#">iframes</a> and contribute
+				design and development improvements to the widget on
+				<a href="https://github.com/minecraftforum/widget">GitHub</a>.
+			</p>
 		</div>
 	</header>
+	{% include 'wizard.html' %}
+	<section class="documentation">
+		<div class="content">
+			<h2>Minecraft Forum</h2>
+			<p>
+				Embedding a curse.com project widget on minecraftforum.net is
+				simple, use the <abbr title="[mod]">mod</abbr>,
+				<abbr title="[texturepack]">texturepack</abbr> or
+				<abbr title="[world]">world</abbr> bbcode to place any
+				number of widgets anywhere in your forum posts. Projects are
+				identified by their curse.com slug or a unique CurseForge
+				project ID.
+			</p>
+			<p>
+				The optional version parameter accepts a Release Type,
+				Major Version, Major Version with Release Type, or File ID.
+			</p>
+		</div>
+	</section>
 </body>
 </html>

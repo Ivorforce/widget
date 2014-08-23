@@ -1,0 +1,43 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.42857143;
+}
+
+.content {
+  @include container;
+}
+
+.introduction {
+  background-color: #fbad12;
+  color: #fff;
+  padding: 50px 40px;
+
+  a {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  h1 {
+    margin: 0px;
+  }
+
+  .lead {
+    font-size: 18px;
+  }
+}
+
+.documentation {
+  padding: 10px 40px;
+
+  abbr {
+    font-weight: bold;
+    border-bottom: dotted 1px;
+  }
+}

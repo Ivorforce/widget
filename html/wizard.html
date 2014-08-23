@@ -1,0 +1,24 @@
+<section class="wizard">
+	<div class="creator">
+		<div class="project"></div>
+		<div class="versions"></div>
+		<div class="files"></div>
+		<div class="options"></div>
+	</div>
+	<form method="post">
+		<input type="text" name="url" class="project-url"
+			   placeholder="http://www.curse.com/minecraft/railcraft"
+			   value="http://www.curse.com/mc-mods/minecraft/railcraft"/>
+	</form>
+	{% raw %}
+	<script id="project-template" type="x-tmpl-mustache">
+		Creating a widget for <a href="{{ url }}" title="{{ title }}">{{ title }}</a>
+		by {{ authors.0 }} &mdash; <a href="#">start over?</a>
+	</script>
+	<script id="versions-template" type="x-tmpl-mustache">
+		{{#versions}}
+		<div class="version">{{ version }} {{ files }} files</div>
+		{{/versions}}
+	</script>
+	{% endraw %}
+</section>
