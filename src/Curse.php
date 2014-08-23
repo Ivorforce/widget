@@ -142,7 +142,6 @@ class Curse {
 	{
 		$this->crawler->add($html);
 
-		// Return null if this isn't a content page
 		if ( ! $this->crawler->filter('ul.details-list .game')->exists())
 		{
 			return null;
