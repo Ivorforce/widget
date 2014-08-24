@@ -1,0 +1,17 @@
+{% extends 'widget-template.html' %}
+
+{% block widget %}
+<div class="wrapper error">
+	<h1>{{ error }}</h1>
+	<p>
+		The <a href="http://widget.mcf.li" target="_blank">widget</a>
+		requested cannot be rendered.
+	</p>
+	<p>
+		<strong>Error</strong> {{ message }}.
+	</p>
+</div>
+<script type="text/javascript">
+	ga('send', 'error', '{{ message }}', 'error?page='+ document.location.pathname + document.location.search +'&from=' + document.referrer);
+</script>
+{% endblock %}

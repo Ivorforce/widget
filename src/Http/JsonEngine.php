@@ -13,9 +13,10 @@ class JsonEngine extends Engine implements EngineInterface {
 	/**
 	 * @param $view
 	 * @param $parameters
+	 * @param $meta
 	 * @return string
 	 */
-	public function render($view, $parameters)
+	public function render($view, $parameters, $meta)
 	{
 		return json_encode($parameters);
 	}

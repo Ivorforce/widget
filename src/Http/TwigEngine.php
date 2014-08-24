@@ -21,11 +21,12 @@ class TwigEngine extends Engine implements EngineInterface {
 	 *
 	 * @param $template
 	 * @param $parameters
+	 * @param $meta
 	 * @return string
 	 */
-	public function render($template, $parameters)
+	public function render($template, $parameters, $meta)
 	{
-		$parameters = array_merge($parameters, ['assets' => $this->assets]);
+		$parameters = array_merge($parameters, ['assets' => $this->assets, 'meta' => $meta]);
 		return $this->twig->render("{$template}.html", $parameters);
 	}
 }

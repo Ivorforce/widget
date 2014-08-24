@@ -13,41 +13,24 @@ var exec        = require('child_process').exec;
 var sys         = require('sys');
 
 gulp.task('clean', function (cb) {
-    del(['build/**/*', 'public/assets/css/*.css', 'public/assets/js/*.js'], cb);
+    del(['build/**/*', 'public/assets/css/*.css'], cb);
 });
 
-gulp.task('css', function () {
-    return gulp.src(['assets/css/*.scss'])
+gulp.task('css', ['clean'], function () {
+    return gulp.src(['assets/css/*.scss', 'assets/css/widgets/*.scss'])
         .pipe(sass().on('error', gutil.log))
         .pipe(autoprefix('last 10 version'))
         // .pipe(minifyCSS())
         .pipe(rev())
         .pipe(gulp.dest('public/assets/css'))
         .pipe(rev.manifest())
-        .pipe(gulp.dest('build/css'))
-        .pipe(rename('css.json'))
-        .pipe(gulp.dest('build'))
-});
-
-gulp.task('javascript', function () {
-    return gulp.src(['bower_components/jquery/dist/jquery.min.js', 'bower_components/mustache.js/mustache.js', 'assets/js/wizard.js', 'assets/js/*.js'])
-        .pipe(concat('website.js'))
-        .pipe(rev())
-        .pipe(gulp.dest('public/assets/js'))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('build/js'))
-        .pipe(rename('js.json'))
-        .pipe(gulp.dest('build'))
-});
-
-gulp.task('assets', ['clean', 'css', 'javascript'], function (cb) {
-    return gulp.src('build/*.json')
-        .pipe(extend('assets.json', true, 1))
-        .pipe(gulp.dest('public/assets'));
+        .pipe(gulp.dest('public/assets'))
+        .pipe(rename('assets.json'))
+        .pipe(gulp.dest('public/assets'))
 });
 
 gulp.task('watch', function () {
-    gulp.watch('assets/**/*', ['assets']);
+    gulp.watch('assets/**/*', ['css']);
 });
 
-gulp.task('default', ['assets', 'watch']);
+gulp.task('default', ['css', 'watch']);

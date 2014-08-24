@@ -30,12 +30,13 @@ class Response extends Klein\Response {
 	/**
 	 * @param       $template
 	 * @param array $parameters
+	 * @param array $meta
 	 * @return string
 	 */
-	public function render($template, $parameters = [])
+	public function render($template, $parameters = [], $meta = [])
 	{
 		$this->setHeaders($this->engine->headers);
-		return $this->engine->render($template, $parameters);
+		return $this->engine->render($template, $parameters, $meta);
 	}
 
 	/**

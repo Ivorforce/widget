@@ -16,7 +16,7 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 		$response->engine = new Widget\Http\JsonEngine();
 	}
 
-	if ( ! file_exists("../html/widgets/{$theme}.html"))
+	if ( ! file_exists("../html/widgets/{$theme}.html") || in_array($theme, ['template', 'error']))
 	{
 		$theme = 'default';
 	}
@@ -25,10 +25,13 @@ $router->respond('GET', '/[*:identifier].[json:format]?', function ($request, $r
 
 	if ($curse->getError())
 	{
-		return $response->render('error', $curse->getError());
+		return $response->render('widgets/error', $curse->getError());
 	}
 
-	return $response->render("widgets/{$theme}", $properties);
+	$renderer = new Widget\Render($properties);
+	$project = $renderer->render($version);
+
+	return $response->render("widgets/{$theme}", $project);
 });
 
 $router->respond('GET', '/', function ($request, $response, $service, $app)

@@ -1,0 +1,113 @@
+body {
+  background-color: transparent;
+  color: #555555;
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.wrapper {
+  background-color: #ffffff;
+  border: 2px solid #eeeeee;
+  border-radius: 4px;
+  box-shadow: 1px 1px 0 #cccccc, 2px 2px 2px #eeeeee;
+  height: 138px;
+  margin-right: 2px;
+  min-width: 560px;
+  padding: 6px;
+}
+
+.wrapper.error {
+  padding: 10px 20px;
+}
+
+.wrapper.error h1 {
+  font-size: 1.5em;
+}
+
+.wrapper .thumb {
+  float: left;
+  height: 116px;
+  margin-right: 12px;
+  width: 184px;
+}
+
+.wrapper .thumb img {
+  max-height: 116px;
+  width: 184px;
+}
+
+.wrapper .meta {
+  float: left;
+  min-width: 340px;
+}
+
+.wrapper .line {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wrapper .meta .line.lead {
+  margin-bottom: 4px;
+}
+
+.wrapper .meta .line.small {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.wrapper .meta .line.smaller {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.wrapper .meta .line.bottom {
+  margin-top: 6px;
+}
+
+.wrapper .meta .line .quiet {
+  color: #999999;
+  font-size: 11px;
+}
+
+.wrapper .meta .line a {
+  color: #222222;
+  font-weight: bold;
+}
+
+.wrapper .meta .line .beta {
+  color: #ff4102;
+  font-weight: bold;
+}
+
+.wrapper .meta .line.lead a:hover {
+  color: #ea8f20;
+}
+
+.btn-curse {
+  background-color: #fbad12;
+  border-color: #ea8f20;
+}
+
+.about-widget {
+  color: #333333;
+  display: none;
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  height: 20px;
+  margin: -8px;
+  width: 16px;
+}
+
+.about-widget:hover {
+  color: #ea8f20;
+  text-decoration: none;
+}
+
+.wrapper:hover .about-widget {
+  display: inline;
+}
