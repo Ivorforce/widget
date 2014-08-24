@@ -1,6 +1,5 @@
 $max-width: 640px;
 
 @mixin container {
-  @include outer-container;
-  margin: 0px;
+  padding: 40px 50px;
 }

@@ -11,13 +11,14 @@ body {
 }
 
 .content {
-  @include container;
+  @include outer-container;
+  margin: 0px;
 }
 
 .introduction {
+  @include container;
   background-color: #fbad12;
   color: #fff;
-  padding: 50px 40px;
 
   a {
     color: #fff;
@@ -33,11 +34,28 @@ body {
   }
 }
 
+.demo {
+  @include container;
+  background-color: #eee;
+
+  .widget {
+    border: none;
+    width: 100%;
+  }
+}
+
 .documentation {
-  padding: 10px 40px;
+  @include container;
+  padding-top: 10px;
 
   abbr {
     font-weight: bold;
     border-bottom: dotted 1px;
+  }
+
+  a {
+    color: #ea8f20;
+    font-weight: bold;
+    text-decoration: none;
   }
 }
