@@ -31,11 +31,8 @@ body {
   height: 116px;
   margin-right: 12px;
   width: 184px;
-}
-
-.wrapper .thumb img {
-  max-height: 116px;
-  width: 184px;
+  background-size: contain;  
+  background-position: center;
 }
 
 .wrapper .meta {
